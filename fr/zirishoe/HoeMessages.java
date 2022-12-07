@@ -1,6 +1,7 @@
 package fr.zirishoe;
 
 import fr.zirishoe.utils.ColorsUtil;
+import fr.zirishoe.utils.HoeUtils;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -31,7 +32,7 @@ public enum HoeMessages {
         val.put(MAX_MINE.toString(), String.valueOf(20000*Integer.parseInt(level)));
         val.put(AUTOSELL.toString(), Integer.parseInt(level) == 5 ? ColorsUtil.translate.apply("&a✓"):
                 ColorsUtil.translate.apply("&cx"));
-        val.put(OWNER.toString(), player.getDisplayName());
+        val.put(OWNER.toString(), player.getDisplayName() + "#" + HoeUtils.playerHoePossession(player));
 
         return val;
 

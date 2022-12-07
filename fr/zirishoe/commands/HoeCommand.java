@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
-import javax.xml.transform.Result;
 import java.util.*;
 import java.util.stream.IntStream;
 
@@ -50,7 +49,12 @@ public class HoeCommand implements CommandExecutor {
                         .addLores(loreList)
                         .build();
 
-                System.out.println(hoeItem.hashCode());
+                String ownerName = hoeItem.hasItemMeta() ?
+                        hoeItem.getItemMeta().getLore().get(1).split(" ")[1]:
+                        null;
+
+                instance.getConfig().set("hoeBlocks." + ownerName.substring(0,ownerName.length()-2) + "." + ownerName.substring(ownerName.length()-2),0);
+                instance.saveConfig();
 
                 player.getInventory().addItem(hoeItem);
 
@@ -85,6 +89,7 @@ public class HoeCommand implements CommandExecutor {
                 int index = this.getKeyMessageIndex(loreList,entry.getKey());
                 String newLine = loreList.get(index)
                         .replace(entry.getKey(),entry.getValue());
+
                 loreList.set(index,ColorsUtil.translate.apply(newLine));
             }
 
